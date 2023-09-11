@@ -37,6 +37,7 @@ public class JWTauthentication extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;//this sends the request to the next response
         }
+        //functionality of jwt authHeader failure
         jwt = authHeader.substring(7); //since bearer is 7 tokens long along with the space.
         userEmail = jwtService.extractUsername(jwt);
         //check whether user is authenticated and then authenticates if not
