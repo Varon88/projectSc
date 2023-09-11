@@ -30,14 +30,21 @@ public class JWTauthentication extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
+
+        if(request.getServletPath().contains("bob")){
+            filterChain.doFilter(request, response);
+        }
+
         final String authHeader = request.getHeader("Authorization"); //used to extract the authorization method from the request header
         final String jwt;
         final String userEmail;
+
         if(authHeader == null || !authHeader.startsWith("Bearer ")){
             filterChain.doFilter(request, response);
-            return;//this sends the request to the next response
+            return; //this sends the request to the next response
         }
-        //functionality of jwt authHeader failure
+
+
         jwt = authHeader.substring(7); //since bearer is 7 tokens long along with the space.
         userEmail = jwtService.extractUsername(jwt);
         //check whether user is authenticated and then authenticates if not

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.web.servlet.function.ServerResponse.ok;
 
 @RestController
-@RequestMapping("bob")
+@RequestMapping("/bob")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
